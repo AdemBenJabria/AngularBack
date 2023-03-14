@@ -41,10 +41,10 @@ require("./routes/subject.js")(app);
 require("./routes/assignments")(app);
 require("./routes/user")(app);
 
-let port = process.env.PORT || 8010;
+let port = process.env.PORT || 8080;
 
 
-app.listen(port, "0.0.0.0");
+app.listen(port, () => {});
 console.log('server started on http://localhost:' + port);
 
 module.exports = app;
