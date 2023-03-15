@@ -7,10 +7,6 @@ let AssignmentSchema = Schema({
     nom: String,
     dateDeRendu: Date,
     rendu: Boolean,
-    auteur: String,
-    matiere: String,
-    note: Number,
-    remarque: String
 });
 AssignmentSchema.plugin(aggregatePaginate);
 module.exports = mongoose.model('assignments', AssignmentSchema);

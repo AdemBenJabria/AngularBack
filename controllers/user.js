@@ -61,7 +61,7 @@ exports.getProfile = (req, res) => {
         if (err) {
             return res.status(500).send({ auth: false, message: 'Failed to authentificate' });
         }
-        req.userId = decoded.id,{password: 0}, (err, user) => {
+        User.findbyID( decoded.id,{password: 0}, (err, user) => {
             if(err) {
                 return res.status(500).send('There was a problem finding the user');
             }
@@ -70,7 +70,7 @@ exports.getProfile = (req, res) => {
             }
             res.status(200).send(user);
         }
-    });
+    )});
 };
 
 
@@ -90,9 +90,15 @@ exports.login = (req, res) => {
             return res.status(401).send({ auth: false, token: null });
         }
         let token = jwt.sign({ id: user._id }, config.secret, {
-            expiresIn: 86400 // expires in 24 hours
+            expiresIn: 86400
         });
-        res.status(200).send({ auth: true, token: token });
+        const {password, ...userData} = user;
+        res.status(200).send({
+            auth: true, 
+            token: token, 
+            expiresIn: 86400,
+            user: user
+        });
     });
 };
 
