@@ -24,8 +24,8 @@ exports.register = (req, res) => {
             if (err) {
                 return res.status(500).send('Error on the server');
             }
-            if (!user) {
-                return res.status(404).send('No user found');
+            if (user) {
+                return res.status(409).send('User already exists');
             }
             else {
                 let hashedPassword = bcrypt.hashSync(req.body.password, 8);
@@ -52,18 +52,27 @@ exports.register = (req, res) => {
 
 
 exports.getProfile = (req, res) => {
+    checkToken();
     let token = req.headers['x-access-token'];
     if (!token) {
-        return res.status(401).send({ auth: false, message: 'No token providerd.' });
+        return res.status(401).send({ auth: false, message: 'No token provided.' });
     }
     jwt.verify(token, config.secret, (err, decoded) => {
         if (err) {
             return res.status(500).send({ auth: false, message: 'Failed to authentificate' });
         }
-        req.userId = decoded.id;
-        next();
+        req.userId = decoded.id,{password: 0}, (err, user) => {
+            if(err) {
+                return res.status(500).send('There was a problem finding the user');
+            }
+            if(!user) {
+                return res.status(404).send('No user found');
+            }
+            res.status(200).send(user);
+        }
     });
-}
+};
+
 
 exports.login = (req, res) => {
     User.findOne({

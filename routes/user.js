@@ -1,12 +1,12 @@
 module.exports = app => {
     const user = require("../controllers/user.js");
 
-    app.post("/api/user/register", user.register);
+    app.post("/api/auth/register", user.register);
 
-    app.get("/api/user/me", user.getProfile);
+    app.get("/api/auth/me", user.getProfile);
 
-    app.post("/api/user/login", user.login);
+    app.post("/api/auth/login", user.login);
 
-    app.get("/api/user/logout", user.logout);
+    app.get("/api/auth/logout", user.logout);
 
 }

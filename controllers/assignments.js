@@ -30,6 +30,11 @@ exports.postAssignment = (req, res) => {
     assignment.id = req.body.id;
     assignment.nom = req.body.nom;
     assignment.dateDeRendu = req.body.dateDeRendu;
+    assignment.rendu = req.body.rendu;
+    assignment.auteur = req.body.auteur;
+    assignment.matiere = req.body.matiere;
+    assignment.note = req.body.note;
+    assignment.remarque = req.body.remarque;
 
     assignment.save((err) => {
         if (err) {
