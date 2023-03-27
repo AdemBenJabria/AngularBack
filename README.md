@@ -25,16 +25,13 @@ Ce projet est une implémentation d'une API pour l'authentification des utilisat
 
 4.  dans le fichier `config.js` ajoutez vos informations de configuration:
 
-`module.exports = {`
-`secret: "votre_clé_secrète",`
-  `public: "votre_clé_publique",`
-`'jwt_secret': secret};`
+`module.exports = { secret: "votre_clé_secrète",public: "votre_clé_publique",'jwt_secret': secret};`
 
 5.  Démarrez le serveur:
 
 `npm start` 
 
-Le serveur sera accessible à l'adresse [http://localhost:8080](http://localhost:3000/)
+Le serveur sera accessible à l'adresse [http://localhost:8080](http://localhost:8080/)
 
 ## Utilisation
 
