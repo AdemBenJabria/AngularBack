@@ -41,9 +41,9 @@ exports.register = (req, res) => {
                         if (err) {
                             return res.status(500).send("There was a problem registering the user");
                         }
-                        let token = jwt.sign({ id: user._id }, config.secret, {
+                        let token = jwt.sign({ id: user._id, first_name: user.first_name }, config.secret, {
                             expiresIn: 86400 // expires in 24 hours
-                        });
+                          });
                         res.status(200).send({ auth: true, token: token });
                     });
             }
@@ -89,15 +89,15 @@ exports.login = (req, res) => {
         if (!passwordIsValid) {
             return res.status(401).send({ auth: false, token: null });
         }
-        let token = jwt.sign({ id: user._id }, config.secret, {
-            expiresIn: 86400
-        });
+        let token = jwt.sign({ id: user._id, first_name: user.first_name }, config.secret, {
+            expiresIn: 86400 // expires in 24 hours
+          });
         const {password, ...userData} = user;
         res.status(200).send({
             auth: true, 
             token: token, 
             expiresIn: 86400,
-            user: user
+            user: userData 
         });
     });
 };
